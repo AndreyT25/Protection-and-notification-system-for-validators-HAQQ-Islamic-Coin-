@@ -74,7 +74,7 @@ For simple monitoring without notifications, just change in the config:
 - chain-id: haqq_54211–2
 - valoper_address: Replace with your address
 - url: http://142.132.202.50:11601/ 
-# Example <a href="https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-.git"> config.yml </a> file
+# Example <a href="https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-/blob/main/config.yml"> config.yml </a> file
 
 ---
 # Discord setup
