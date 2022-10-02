@@ -1,161 +1,161 @@
 ---
 
-# определяет, включена ли панель мониторинга
+# determines if the dashboard is enabled
 enable_dashboard: yes
 
-# Какой TCP-порт будет прослушивать панель мониторинга
+# Which TCP port will the dashboard listen on
 listen_port: 8888
 
-# hide_log полезен, если панель мониторинга будет опубликована публично. Он отключает канал журнала,
-# и скрывает большинство деталей, связанных с узлом. Имейте в виду, что это не полностью проверено на предмет предотвращения
-# утечки информации об именах узлов и т.д.
+# hide_log is useful if the dashboard will be published publicly. It disables the log channel,
+# and hides most details associated with the node. Keep in mind that this is not fully tested to prevent
+# information leaks about hostnames, etc.
 hide_logs: no
 
-# Сколько времени нужно подождать, прежде чем оповестить о том, что узел не работает
+# How long to wait before reporting that a node is down
 node_down_alert_minutes: 3
 
-# Должен ли быть включен экспортер prometheus?
+# Should the prometheus exporter be included?
 prometheus_enabled: no
-# Какой порт он должен прослушивать?
+# What port should it listen on?
 prometheus_listen_port: 28686
 
-# Глобальная настройка
+# Global setting
 pagerduty:
-  # Должны ли мы использовать PD? Имейте в виду, что если для этого параметра установлено значение no, это переопределяет отдельные настройки оповещения цепочки.
+  # Should we use PD? Be aware that setting this option to no overrides individual chain alert settings.
   enabled: no
-  # Это ключ API, а не токен oauth, более подробная информация приведена ниже, но для получения дополнительной информации ознакомьтесь с документами v1.
-  api_key: aaaaaaaaaaaabbbbbbbbbbbbbcccccccccccc
-  # В настоящее время не используется, но скоро будет использоваться. Это позволяет устанавливать приоритеты эскалации и т.д.
+  # This is an API key, not an oauth token, see below for more details, but check out the v1.
+  api_key: aaaaaaaaaaabbbbbbbbbbbcccccccccccc
+  # Currently not in use, but will be in use soon. This allows you to set escalation priorities, etc.
   default_severity: alert
 
-# Настройки Discord
+# Discord settings
 discord:
-  # Оповещения в discord?
+  # Notifications in discord?
   enabled: no
-  # Webhook настраивается щелчком правой кнопки мыши на канале, редактированием настроек и настройкой webhook в разделе интеграции.
-  webhook: https://discord.com/api/webhooks/999999999999999999/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+  # The webhook is set up by right clicking on the channel, editing the settings and configuring the webhook in the integration section.
+  webhook: https://discord.com/api/webhooks/999999999999999999/zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
-# Настройки Telegram
-telegram:
-  # Оповещение в Telegram? Примечание: также заменяет настройки, относящиеся к конкретной сети
+# Telegram settings
+Telegram:
+  # Notification in Telegram? Note: also overrides network-specific settings
   enabled: no
-  # Ключ API ... поговорите с @BotFather
-  api_key: '5555555555:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
-  # ID группы чата, в который будут отправляться сообщения
+  # API Key ... talk to @BotFather
+  api_key: '5555555555:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+  # ID of the chat group to which messages will be sent
   channel: "-666666666"
 
-# Различные цепочки, подлежащие мониторингу. Создайте новую запись для каждой сети
+# Various chains to be monitored. Create a new entry for each network
 chains:
 
-  # Удобное для пользователя имя, которое будет использоваться для меток. Настоятельно рекомендую заключить в кавычки
+  # A user-friendly name to be used for labels. I strongly recommend enclosing in quotation marks
   "haqq":
-    # chain_id проверяется на соответствие при подключении к конечной точке RPC, также используется в качестве метки в нескольких местах
+    # chain_id is checked for a match when connecting to an RPC endpoint, also used as a label in several places
     chain_id: haqq_54211–2
-    # Ура, в версии v2 мы выводим valcons из запросов abci, так что вам не придется прыгать через обручи, чтобы выяснить, как преобразовывать ключи ed25519 в соответствующий адрес bech32
+    # Hooray, in v2 we're deriving valcons from abci requests so you don't have to jump through hoops to figure out how to convert ed25519 keys to the corresponding bech32 address
     valoper_address: haqqvaloper....substitute your address
-    # Должен ли мониторинг вернуться к использованию общедоступных конечных точек API, если все предоставленные узлы RCP выйдут из строя?
-    # Это не всегда надежно, не все общедоступные узлы имеют правильную настройку прокси-сервера websocket.
+    # Should monitoring fall back to using public API endpoints if all provisioned RCP nodes go down?
+    # This is not always reliable, not all public hosts have the correct websocket proxy setting.
     public_fallback: yes
 
-    # Управляет различными настройками оповещений для каждой сети
+    # Manages different alert settings for each network
     alerts:
-      # Если сеть перестает видеть новые блоки, следует ли отправлять предупреждение?
+      # If the network stops seeing new blocks, should a warning be sent?
       stalled_enabled: yes
-      # Сколько времени требуется остановленной сети в минутах, чтобы сгенерировать сигнал тревоги
+      # How long it takes a stopped network in minutes to generate an alarm
       stalled_minutes: 10
 
-      # Самый простой сигнал тревоги, вы только что пропустили x блоков... хотели бы вы знать?
+      # The simplest alarm, you just missed x blocks... would you like to know?
       consecutive_enabled: yes
-      # Сколько пропущенных блоков должно вызвать уведомление
+      # How many skipped blocks should trigger notification
       consecutive_missed: 5
-      # НЕ ИСПОЛЬЗУЕТСЯ: будущая подсказка для маршрутизации pagerduty
+      # NOT USED: future hint for pagerduty routing
       consecutive_priority: critical
 
-      # Для каждой сети существует определенное окно блоков и процент пропущенных блоков, которые приведут к тюрьме
-      # Следует ли отправлять предупреждение, если превышен определенный процент этого окна?
+      # For each network, there is a specific block window and the percentage of skipped blocks that will result in jail
+      # Should a warning be sent if a certain percentage of this window is exceeded?
       percentage_enabled: no
-      # Какой процент должен вызвать оповещение
+      # What percentage should trigger an alert
       percentage_missed: 10
-      # Еще не используется, подсказка о маршрутизации pagerduty
+      # Not used yet, pagerduty routing hint
       percentage_priority: warning
 
-      # Должно ли быть отправлено предупреждение, если валидатор не находится в активном наборе, т.е. заключен в тюрьму, tombstoned, не привязан?
+      # Whether a warning should be sent if the validator is not in the active set, i.e. imprisoned, tombstoned, unattached?
       alert_if_inactive: yes
-      # Следует ли отправлять предупреждение, если ни один RPC-сервер не отвечает? (Обратите внимание, что этот сигнал тревоги подается мгновенно без задержки)
+      # Should a warning be sent if no RPC server is responding? (Please note that this alarm is given instantly without delay)
       alert_if_no_servers: yes
 
-      # для этой *конкретной* сети можно переопределить настройки оповещений. Если адреса api_key или webhook пусты,
-      # то будут использоваться глобальные настройки. Обратите внимание, что включено должно быть установлено как глобально, так и для каждой цепочки
+      # You can override alert settings for this *specific* network. If the api_key or webhook addresses are empty,
+      # then global settings will be used. Note that enabled must be set both globally and per chain
 
-      # Настройка для конкретной цепочки для pagerduty
+      # Thread specific setting for pagerduty
       pagerduty:
         enabled: yes
-        api_key: "" # используется по умолчанию, если пусто
+        api_key: "" # default if empty
 
-      # Настройки Discord
+      # Discord settings
       discord:
         enabled: yes
-        webhook: "" # используется по умолчанию, если пусто
+        webhook: "" # default if empty
 
-      # Настройки Telegram
-      telegram:
+      # Telegram settings
+      Telegram:
         enabled: yes
-        api_key: "" # используется по умолчанию, если пусто
-        channel: "" # используется по умолчанию, если пусто
+        api_key: "" # default if empty
+        channel: "" # default if empty
 
-    # В этом разделе рассматриваются наши поставщики RPC. Конечные точки LCD (они же REST) не используются, только конечные точки RPC
-    # Рекомендуется использовать несколько хостов, и они будут опробованы последовательно, пока не будет обнаружена рабочая RPC
+    # This section covers our RPC providers. LCD endpoints (aka REST) ​​are not used, only RPC endpoints
+    # It is recommended to use multiple hosts and they will be tried sequentially until a working RPC is found
     nodes:
-      # URL-адрес конечной точки. Должен включать protocol://hostname:port
+      # Endpoint URL. Must include protocol://hostname:port
       - url: http://142.132.202.50:11601/
-        # Должны ли мы отправить предупреждение, если этот хост не отвечает?
+        # Should we send a warning if this host is not responding?
         alert_if_down: yes
-      # повторные хосты для контроля избыточности
-#      - url: 
-#        alert_if_down: no
-#      - url: 
-#        alert_if_down: no
+      # repeated hosts for redundancy control
+#-url:
+# alert_if_down: no
+#-url:
+# alert_if_down: no
 
-################################################################################
-# Далее можно добавить вторую и последующие сети... Раскомментируйте и измените#
-################################################################################
+################################################### ################################
+# Next, you can add a second and subsequent networks... Uncomment and change#
+################################################### ################################
 #chains:
-#  "L1":
-#    chain_id: genesis_29-2
-#    valoper_address: genesisvaloper1...
-#    public_fallback: yes
+# "L1":
+# chain_id: genesis_29-2
+# valoper_address: genesisvaloper1...
+# public_fallback: yes
 
-#    alerts:
-#      stalled_enabled: yes
-#      stalled_minutes: 10
-#      consecutive_enabled: yes
-#      consecutive_missed: 5
-#      consecutive_priority: critical
-#      percentage_enabled: no
-#      percentage_missed: 10
-#      percentage_priority: warning
-#      alert_if_inactive: yes
-#      alert_if_no_servers: yes
+# alerts:
+# stalled_enabled: yes
+# stalled_minutes: 10
+# consecutive_enabled: yes
+# consecutive_missed: 5
+# consecutive_priority: critical
+# percentage_enabled: no
+# percentage_missed: 10
+# percentage_priority: warning
+# alert_if_inactive: yes
+# alert_if_no_servers: yes
 
-#      pagerduty:
-#        enabled: yes
-#        api_key: "" # используется по умолчанию, если пусто
+#pagerduty:
+# enabled: yes
+# api_key: "" # default if empty
 
-#      discord:
-#        enabled: yes
-#        webhook: "" # используется по умолчанию, если пусто
+#discord:
+# enabled: yes
+# webhook: "" # default if empty
 
-#      telegram:
-#        enabled: yes
-#        api_key: "" # используется по умолчанию, если пусто
-#        channel: "" # используется по умолчанию, если пусто
+#telegram:
+# enabled: yes
+# api_key: "" # default if empty
+# channel: "" # default if empty
 
-#    nodes:
-#      - url: 
-#        alert_if_down: yes
-#      - url: 
-#        alert_if_down: no
-#      - url: 
-#        alert_if_down: no
-#      - url: 
-#        alert_if_down: no
+# nodes:
+#-url:
+# alert_if_down: yes
+#-url:
+# alert_if_down: no
+#-url:
+# alert_if_down: no
+#-url:
+# alert_if_down: no
