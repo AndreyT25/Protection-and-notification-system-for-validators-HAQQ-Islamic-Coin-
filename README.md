@@ -66,14 +66,14 @@ Install tenderduty
   
 Now you can download the config and edit it
   
-    wget -O $HOME/tenderduty/config.yml "https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-/blob/main/config.yml"
+    wget -O $HOME/tenderduty/config.yml "https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-.git"
     nano $HOME/tenderduty/config.yml
 For simple monitoring without notifications, just change in the config:
 - network name: haqq
 - chain-id: haqq_54211–2
 - valoper_address: Replace with your address
 - url: http://142.132.202.50:11601/ 
-# Example <a href="https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-/blob/main/config.yml"> config.yml </a> file
+# Example <a href="https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-.git"> config.yml </a> file
 
 ---
 # Discord setup
