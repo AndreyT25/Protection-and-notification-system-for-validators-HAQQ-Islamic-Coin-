@@ -73,7 +73,7 @@ For simple monitoring without notifications, just change in the config:
 - network name: haqq
 - chain-id: haqq_54211–2
 - valoper_address: Replace with your address
-- url: http://142.132.202.50:11601/ 
+- url: https://haqq-t.rpc.manticore.team:443/
 # Example <a href="https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-/blob/main/config.yml"> config.yml </a> file
 
 ---
