@@ -66,7 +66,7 @@ Install tenderduty
   
 Now you can download the config and edit it
   
-    wget -O $HOME/tenderduty/config.yml "https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-.git"
+    wget -O $HOME/tenderduty/config.yml "https://github.com/AndreyT25/Protection-and-notification-system-for-validators-HAQQ-Islamic-Coin-/blob/5e0fb3ec2676086654939676a755a17f09b459a6/config.yml"
     nano $HOME/tenderduty/config.yml
 For simple monitoring without notifications, just change in the config:
 - network name: haqq
