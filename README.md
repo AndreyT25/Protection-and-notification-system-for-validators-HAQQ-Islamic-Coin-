@@ -120,5 +120,25 @@ Now is the time to check the information in the browser
  
      echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):8888/\033[0m"
 
-
+# Useful Commands
+ 
+view installed images
+ 
+     docker images
+ 
+view running containers
+ 
+     docker ps
+ 
+stop the container
+ 
+     docker stop tenderduty
+ 
+restart the container
+ 
+     docker restart tenderduty
+ 
+see logs
+ 
+     docker logs -f --tail 20 tenderduty
 
